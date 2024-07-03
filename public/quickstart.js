@@ -216,8 +216,8 @@
   }
 
   function setClientNameUI(clientName) {
-    var div = document.getElementById("client-name");
-    div.innerHTML = `Your client name: <strong>${clientName}</strong>`;
+    var div = document.getElementById("client-number");
+    div.innerHTML = `Your phone number: <strong>+14357087363</strong>`;
   }
 
   function resetIncomingCallUI() {
@@ -300,7 +300,32 @@
       if (isActive) {
         option.setAttribute("selected", "selected");
       }
+
+      option.style.color = 'blue'; // Example style
+      option.style.fontSize = '16px'; // Example style
+      option.style.padding = '5px'; // Example style
       selectEl.appendChild(option);
     });
   }
+
+  const phoneNumberPattern = /^\+\d{11,12}$/; // Allows + followed by 10 or 11 digits
+
+  phoneNumberInput.addEventListener('input', function() {
+    const isValid = phoneNumberPattern.test(phoneNumberInput.value);
+    callButton.disabled = !isValid;
+  });
+
+  phoneNumberInput.addEventListener('keypress', function(event) {
+    const char = String.fromCharCode(event.which);
+    if (!/[0-9+]/.test(char) || (char === '+' && phoneNumberInput.value.length > 0)) {
+      event.preventDefault();
+    }
+  });
+
+  phoneNumberInput.addEventListener('paste', function(event) {
+    const pastedData = (event.clipboardData || window.clipboardData).getData('text');
+    if (!phoneNumberPattern.test(pastedData)) {
+      event.preventDefault();
+    }
+  });
 });
