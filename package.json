@@ -1,13 +1,12 @@
 {
-  "name": "twilio-voice-javascript-sdk-quickstart-node",
-  "private": true,
+  "name": "voice-javascript-sdk-quickstart",
   "version": "1.0.0",
-  "description": "Quick Start application template for Twilio Voice JavaScript SDK on Node.js",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "eslint": "./node_modules/.bin/eslint .",
-    "test": "./node_modules/.bin/jest"
+    "test": "./node_modules/.bin/jest",
+    "build": "babel src --out-dir dist && babel index.js --out-file dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -35,6 +34,9 @@
     "twilio": "~3.64.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.24.7",
+    "@babel/core": "^7.24.7",
+    "@babel/preset-env": "^7.24.7",
     "eslint": "^7.29.0",
     "eslint-config-google": "^0.14.0",
     "jest": "^27.0.5",
