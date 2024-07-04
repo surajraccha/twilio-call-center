@@ -30,9 +30,40 @@
               >Enter a phone number</label
             >
             <input id="phone-number" type="text" placeholder="+15552221234" />
+
+            <div class="keypad" id="keypad">
+              <input type="button" value="1" onClick="addDigit('1')" class="digit">
+              <input type="button" value="2" onClick="addDigit('2')" class="digit">
+              <input type="button" value="3" onClick="addDigit('3')" class="digit">
+              <input type="button" value="4" onClick="addDigit('4')" class="digit">
+              <input type="button" value="5" onClick="addDigit('5')" class="digit">
+              <input type="button" value="6" onClick="addDigit('6')" class="digit">
+              <input type="button" value="7" onClick="addDigit('7')" class="digit">
+              <input type="button" value="8" onClick="addDigit('8')" class="digit">
+              <input type="button" value="9" onClick="addDigit('9')" class="digit">
+              <input type="button" value="*" onClick="addDigit('*')" class="digit">
+              <input type="button" value="0" onClick="addDigit('0')" class="digit">
+              <input type="button" value="#" onClick="addDigit('#')" class="digit">
+          </div>
             <button id="button-call" type="submit" disabled>Call</button>
           </form>
           <button id="button-hangup-outgoing" class="hide">Hang Up</button>
+
+
+          <div id="call-control" class="call-control hide">
+
+            <button id="mute" onClick="toggleMute(true)" aria-label="mute" style="background-image:url(/images/icon-mute-off.svg)"></button>
+            <button id="unmute" class="hide" onClick="toggleMute(false)" aria-label="unmute" style="background-image:url(/images/icon-mute.svg)"></button>
+
+            <button id="hold" onClick="toggleHold(true)" aria-label="hold" style="background-image:url(/images/icon-hold-off.svg)"></button>
+            <button id="unhold" class="hide" onClick="toggleHold(false)" aria-label="unhold" style="background-image:url(/images/icon-hold.svg)"></button>
+
+            <!-- <button onClick="toggleTransferPanel()" aria-label="tansfer" style="background-image:url(/images/icon-transfer-off.svg)"></button>
+            <button onClick="toggleTransferPanel()" aria-label="cancel-transfer" style="background-image:url(/images/icon-transfer.svg)"></button> -->
+
+          </div>
+
+
           <div id="incoming-call" class="hide">
             <h2>Incoming Call Controls</h2>
             <p class="instructions">

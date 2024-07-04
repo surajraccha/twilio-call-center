@@ -11,6 +11,13 @@
   const getAudioDevicesButton = document.getElementById("get-devices");
   const logDiv = document.getElementById("log");
   const incomingCallDiv = document.getElementById("incoming-call");
+  const keypad = document.getElementById("keypad");
+  const mute = document.getElementById("mute");
+  const unmute = document.getElementById("unmute");
+  const hold = document.getElementById("hold");
+  const unhold = document.getElementById("unhold");
+  const callControl = document.getElementById("call-control");
+
   const incomingCallHangupButton = document.getElementById(
     "button-hangup-incoming"
   );
@@ -26,7 +33,7 @@
 
   let device;
   let token;
-
+  let call;
   // Event Listeners
 
   callButton.onclick = (e) => {
@@ -111,7 +118,7 @@
       log(`Attempting to call ${params.To} ...`);
 
       // Twilio.Device.connect() returns a Call object
-      const call = await device.connect({ params });
+      call = await device.connect({ params });
 
       // add listeners to the Call
       // "accepted" means the call has finished connecting and the state is now "open"
@@ -122,6 +129,8 @@
       outgoingCallHangupButton.onclick = () => {
         log("Hanging up ...");
         call.disconnect();
+        keypad.classList.remove("hide");
+        callControl.classList.add("hide");
       };
 
     } else {
@@ -133,6 +142,8 @@
     log("Call in progress ...");
     callButton.disabled = true;
     outgoingCallHangupButton.classList.remove("hide");
+    keypad.classList.add("hide");
+    callControl.classList.remove("hide");
     volumeIndicators.classList.remove("hide");
     bindVolumeIndicators(call);
   }
@@ -141,6 +152,7 @@
     log("Call disconnected.");
     callButton.disabled = false;
     outgoingCallHangupButton.classList.add("hide");
+    keypad.classList.remove("hide");
     volumeIndicators.classList.add("hide");
   }
 
@@ -328,4 +340,53 @@
       event.preventDefault();
     }
   });
+
+
+  window.addDigit = addDigit;
+  window.toggleMute = toggleMute;
+  window.toggleHold = toggleHold;
+
+  function addDigit(digit){
+    if(phoneNumberInput.value){
+      phoneNumberInput.value+= digit;
+    }else{
+      phoneNumberInput.value+="+"+digit;
+    }
+    const isValid = phoneNumberPattern.test(phoneNumberInput.value);
+    callButton.disabled = !isValid;
+
+    if(call){
+      call.sendDigits(digit);
+    }
+  }
+
+
+  function toggleMute(flag){
+    if(call){
+      call.mute(flag);
+      if(flag){
+        mute.classList.add("hide");
+        unmute.classList.remove("hide");
+      }else{
+        mute.classList.remove("hide");
+        unmute.classList.add("hide");
+      }
+    }
+  }
+
+  function toggleHold(flag){
+    if(device){
+      device.updateOptions({ hold: flag });
+
+      if(flag){
+        hold.classList.add("hide");
+        unhold.classList.remove("hide");
+      }else{
+        hold.classList.remove("hide");
+        unhold.classList.add("hide");
+      }
+    }
+  }
+
+
 });

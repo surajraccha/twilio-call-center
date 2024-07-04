@@ -124,7 +124,7 @@ button:disabled {
 }
     /* Style for the input element */
     #phone-number {
-      width: 300px;
+      width: 350px;
       padding: 10px;
       margin: 10px 0;
       border: 2px solid #ccc;
@@ -164,3 +164,58 @@ button:disabled {
       font-size: 16px;
       transition: background-color 0.3s;
     }
+
+    .keypad {
+      overflow: auto;
+      padding: 10px 30px 10px 30px;
+    }
+
+    .keypad .digit {
+      float: left;
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
+      border: 1px solid #ddd;
+      font-size: 1.6em;
+      margin-left: 5px;
+      margin-bottom: 5px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #787878;
+      border-radius: 3px;
+  }
+  
+  .digit:nth-child(3n +1) {
+      margin-left: 40px
+  }
+  
+  .digit:nth-child(1n + 10) {
+      margin-bottom: 0
+  }
+  
+  .digit:hover {
+      background-color: #787878;
+      color: white;
+  }
+
+   .call-control {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+ .call-control button {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    outline: inherit;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+  
